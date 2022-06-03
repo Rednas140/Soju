@@ -1,12 +1,12 @@
 [
     {
         "name":"Soju Bar",
-        "longtitude":"51.915723561947694",
-        "latitude":"4.477141898224227" 
+        "longitude":4.477141898224227,
+        "latitude":51.915723561947694 
     },
     {
         "name":"Oriental Express",
-        "longtitude":"51.92054896265989",
-        "latitude":"4.472211469517623" 
+        "longitude":4.472211469517623 ,
+        "latitude":51.92054896265989
     }
 ]
