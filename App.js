@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './screens/Home.js';
 import Map from './screens/Map.js';
+import Settings from './screens/Settings.js'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 // https://coolors.co/palette/d9ed92-b5e48c-99d98c-76c893-52b69a-34a0a4-168aad-1a759f-1e6091-184e77
@@ -23,6 +23,8 @@ export default function App() {
                 : 'home-outline';
             } else if (route.name === 'Map') {
               iconName = focused ? 'map' : 'map-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'settings' : 'settings-outline'
             }
 
             // You can return any component that you like here!
@@ -34,6 +36,7 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Map" component={Map} />
+        <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
     </NavigationContainer>
   );
