@@ -1,15 +1,60 @@
+//importing async storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+//importing react
+import { useState, useEffect } from 'react';
+
+//importing react navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+//importing the diffrent screens
 import Home from './screens/Home.js';
 import Map from './screens/Map.js';
 import Settings from './screens/Settings.js'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-// https://coolors.co/palette/d9ed92-b5e48c-99d98c-76c893-52b69a-34a0a4-168aad-1a759f-1e6091-184e77
-// https://coolors.co/palette/dad7cd-a3b18a-588157-3a5a40-344e41
+//initiating the tabnavigator
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
+  //useState for the current selected theme  
+  const [currentTheme, setCurrentTheme] = useState('light');
+
+  //getting the current theme that is saved in the local storage9
+  const getTheme = async () => {
+    try {
+      const theme = await AsyncStorage.getItem('theme')
+      if (theme !== null) {
+        setCurrentTheme(theme)
+      }
+      else{
+        setCurrentTheme('light')
+      }
+    } catch (err) {
+      // error reading value
+      console.log(err)
+    }
+  }
+
+  //function for saving the currenttheme to the local storage
+  const storeTheme = (newTheme) => {
+    try {
+      AsyncStorage.setItem('theme', newTheme)
+      console.log(newTheme)
+      setCurrentTheme(newTheme);
+      getTheme()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  //executes the gettheme function on first render
+  useEffect(() => {
+    getTheme()
+  }, [])
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -34,9 +79,9 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Map" component={Map} />
-        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen name="Home">{(props) => <Home {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }/>}</Tab.Screen>
+        <Tab.Screen name="Map">{(props) => <Map {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }/>}</Tab.Screen>
+        <Tab.Screen name="Settings">{(props) => <Settings {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }/>}</Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
