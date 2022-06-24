@@ -55,6 +55,7 @@ export default function App() {
     getTheme()
   }, [])
 
+  //tab navigation 
   return (
     <NavigationContainer>
       <Tab.Navigator
