@@ -1,6 +1,7 @@
 //importing from react
 import { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 //importing the map
 import MapView from 'react-native-maps';
@@ -11,8 +12,8 @@ import { Marker } from 'react-native-maps';
 //importing the location from expo
 import * as Location from 'expo-location';
 
-export default function MapScreen() {
-  const [markerData, setMarkerData] = useState([])
+export default function MapScreen({navigation, route, currentTheme, themeStyle, markerData}) {
+  // const [markerData, setMarkerData] = useState([])
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -32,25 +33,25 @@ export default function MapScreen() {
     console.log(errorMsg);
   }
 
-  //GET request
-  const myHeadersGET = new Headers();
-  myHeadersGET.append('Accept', 'application/json')
+//   //GET request
+//   const myHeadersGET = new Headers();
+//   myHeadersGET.append('Accept', 'application/json')
 
-  const myInitGET = {
-      method: 'GET',
-      headers: myHeadersGET
-  };
+//   const myInitGET = {
+//       method: 'GET',
+//       headers: myHeadersGET
+//   };
 
-  const loadJSON = () => fetch(`https://stud.hosted.hr.nl/1011426/markers.json`, myInitGET)
-      .then(res => res.json())
-      .then(data => updateData(data))
-      .catch(err => console.log(err))
+//   const loadJSON = () => fetch(`https://stud.hosted.hr.nl/1011426/markers.json`, myInitGET)
+//       .then(res => res.json())
+//       .then(data => updateData(data))
+//       .catch(err => console.log(err))
 
-  function updateData(data) {
-    setMarkerData(data)
-}
+//   function updateData(data) {
+//     setMarkerData(data)
+// }
 
-  useEffect(() => { loadJSON()}, []);
+//   useEffect(() => { loadJSON()}, []);
 
   return (
     <View style={styles.container}>
@@ -68,6 +69,7 @@ export default function MapScreen() {
         <Marker coordinate={{ latitude : marker.latitude , longitude : marker.longitude, }} icon={require('../assets/Marker_soju.png')} key={ marker.name } title={marker.name}/>
       ))}
       </MapView>
+      <StatusBar style= {currentTheme == 'light' ? "dark" : "light"} />
     </View>
   );
 }

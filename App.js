@@ -14,6 +14,7 @@ import Map from './screens/Map.js';
 import Settings from './screens/Settings.js'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+//importing light and dark themes
 import light from './styles/light.js';
 import dark from './styles/dark.js'
 
@@ -40,6 +41,7 @@ export default function App() {
     }
   }
 
+  //depending on the current theme, the corresponding stylesheet gets put into the themeStyle variable
   let themeStyle;
   if (currentTheme === 'light') {
     themeStyle = light
@@ -60,12 +62,55 @@ export default function App() {
     }
   }
 
+  //GET request
+  const myHeadersGET = new Headers();
+  myHeadersGET.append('Accept', 'application/json')
+
+  //adding headers to fetch
+  const myInitGET = {
+      method: 'GET',
+      headers: myHeadersGET
+  };
+  
+  //fetch
+  const loadJSON = () => fetch(`https://stud.hosted.hr.nl/1011426/markers.json`, myInitGET)
+      .then(res => res.json())
+      .then(data => updateData(data))
+      .catch(err => console.log(err))
+  
+  //updating the list
+  function updateData(data) {
+    storeMarkers(data)
+  }
+
+  //executed on first render
+  useEffect(() => {loadJSON()}, []);
+
+  const [markerData, setMarkerData] = useState([])
+
+  const storeMarkers = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('markers', jsonValue)
+      getMarker()
+    } catch (e) {
+      // saving error
+    }
+  }
+
+  const getMarker = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('markers')
+      setMarkerData(jsonValue != null ? JSON.parse(jsonValue) : null)
+    } catch(e) {
+      // error reading value
+    }
+  }
+
   //executes the gettheme function on first render
   useEffect(() => {
     getTheme()
   }, [])
-
-
 
   //tab navigation 
   return (
@@ -88,13 +133,16 @@ export default function App() {
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: '#99D98C',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: currentTheme == 'light' ? "#99D98C" : "#306844",
+          tabBarStyle: {backgroundColor: currentTheme == 'light' ? "#FFFFFF" : "#222222"},
+          headerStyle: {backgroundColor: currentTheme == 'light' ? "#FFFFFF" : "#222222"},
+          headerTintColor: currentTheme == 'light' ? "#222222" : "#FFFFFF",
+          tabBarInactiveTintColor: currentTheme == 'light' ? "#222222" : "#FFFFFF",
         })}
       >
-        <Tab.Screen name="Home">{(props) => <Home {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle }/>}</Tab.Screen>
-        <Tab.Screen name="Map">{(props) => <Map {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle }/>}</Tab.Screen>
-        <Tab.Screen name="Settings">{(props) => <Settings {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }themeStyle={ themeStyle }/>}</Tab.Screen>
+        <Tab.Screen name="Home">{(props) => <Home {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle } markerData={ markerData }/>}</Tab.Screen>
+        <Tab.Screen name="Map">{(props) => <Map {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle } markerData={ markerData }/>}</Tab.Screen>
+        <Tab.Screen name="Settings">{(props) => <Settings {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }themeStyle={ themeStyle } markerData={ markerData }/>}</Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );

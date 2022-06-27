@@ -11,10 +11,15 @@ export default StyleSheet.create({
       justifyContent: 'center',
   },
   item:{
-    paddingVertical: 5,
-    backgroundColor: '#e1e1e1',
-    width: Dimensions.get('window').width,
-    borderTopWidth: 1,
-    borderTopColor: 'grey',
+    paddingVertical: 8,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 5,
+    marginTop: 10,
+    width: 250,
   },
+  text:{
+    textAlign: 'center',
+    color: '#222222'
+  }
+  
 });

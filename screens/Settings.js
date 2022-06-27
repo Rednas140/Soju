@@ -1,5 +1,6 @@
 //importing react
 import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 //importing the picker
 import { Picker } from '@react-native-picker/picker';
@@ -25,6 +26,7 @@ export default function SettingsScreen({storeTheme, currentTheme, themeStyle}) {
       <Picker.Item label="Light" value="light" />  
       <Picker.Item label="Dark" value="dark" />
     </Picker>
+    <StatusBar style= {currentTheme == 'light' ? "dark" : "light"} />
     </View>
   );
 }
