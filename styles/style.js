@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export default StyleSheet.create({
   H1:{
@@ -9,17 +9,12 @@ export default StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    lightContainer: {
-      backgroundColor: '#d0d0c0',
-    },
-    darkContainer: {
-      backgroundColor: '#242c40',
-    },
-    lightThemeText: {
-      color: '#242c40',
-    },
-    darkThemeText: {
-      color: '#d0d0c0',
-    },
+  },
+  item:{
+    paddingVertical: 5,
+    backgroundColor: '#e1e1e1',
+    width: Dimensions.get('window').width,
+    borderTopWidth: 1,
+    borderTopColor: 'grey',
+  },
 });

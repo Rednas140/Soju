@@ -14,15 +14,17 @@ import Map from './screens/Map.js';
 import Settings from './screens/Settings.js'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import light from './styles/light.js';
+import dark from './styles/dark.js'
+
 //initiating the tabnavigator
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-
   //useState for the current selected theme  
   const [currentTheme, setCurrentTheme] = useState('light');
 
-  //getting the current theme that is saved in the local storage9
+  //getting the current theme that is saved in the local storage
   const getTheme = async () => {
     try {
       const theme = await AsyncStorage.getItem('theme')
@@ -36,6 +38,14 @@ export default function App() {
       // error reading value
       console.log(err)
     }
+  }
+
+  let themeStyle;
+  if (currentTheme === 'light') {
+    themeStyle = light
+  }
+  if (currentTheme === 'dark') {
+    themeStyle = dark
   }
 
   //function for saving the currenttheme to the local storage
@@ -54,6 +64,8 @@ export default function App() {
   useEffect(() => {
     getTheme()
   }, [])
+
+
 
   //tab navigation 
   return (
@@ -80,9 +92,9 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home">{(props) => <Home {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }/>}</Tab.Screen>
-        <Tab.Screen name="Map">{(props) => <Map {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }/>}</Tab.Screen>
-        <Tab.Screen name="Settings">{(props) => <Settings {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }/>}</Tab.Screen>
+        <Tab.Screen name="Home">{(props) => <Home {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle }/>}</Tab.Screen>
+        <Tab.Screen name="Map">{(props) => <Map {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle }/>}</Tab.Screen>
+        <Tab.Screen name="Settings">{(props) => <Settings {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }themeStyle={ themeStyle }/>}</Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );

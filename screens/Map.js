@@ -1,7 +1,14 @@
+//importing from react
 import { useState, useEffect } from 'react';
-import MapView from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
+
+//importing the map
+import MapView from 'react-native-maps';
+
+//importing the marker
 import { Marker } from 'react-native-maps';
+
+//importing the location from expo
 import * as Location from 'expo-location';
 
 export default function MapScreen() {

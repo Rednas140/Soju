@@ -1,9 +1,13 @@
 //importing react
 import {useState, useEffect} from 'react';
-import {StyleSheet, Text, FlatList, View, Dimensions, Image } from 'react-native';
+import { Text, FlatList, View} from 'react-native';
 
-export default function List() {
-      //useState for the marker data
+//importing the stylesheet
+import stylesGlobal from '../styles/style.js';
+
+export default function List(themeStyle) {
+
+  //useState for the marker data
   const [markerData, setMarkerData] = useState([])
 
   //GET request
@@ -32,8 +36,8 @@ export default function List() {
 
   //JSX for a single list item
   const Item = ({ name }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{name}</Text>
+    <View style={[themeStyle.container, stylesGlobal.item]}>
+      <Text style={[themeStyle.text]}>{name}</Text>
     </View>
   );
 
@@ -42,16 +46,4 @@ export default function List() {
   return (
     <FlatList data={markerData} renderItem={renderItem} keyExtractor={item => item.name} />
   );
-    
 }
-
-const styles = StyleSheet.create({
-    item:{
-      paddingVertical: 5,
-      backgroundColor: '#e1e1e1',
-      color:'red',
-      width: Dimensions.get('window').width,
-      borderTopWidth: 1,
-      borderTopColor: 'grey',
-    },
-  });
