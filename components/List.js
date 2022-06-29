@@ -1,19 +1,28 @@
 //importing react
-import { Text, FlatList, View} from 'react-native';
+import { Text, FlatList, View, TouchableOpacity} from 'react-native';
 
 //importing the stylesheet
 import stylesGlobal from '../styles/style.js';
 
-export default function List({themeStyle, markerData}) {
+export default function List({themeStyle, markerData, navigation}) {
+  
+
   //JSX for a single list item
-  const Item = ({ name }) => (
+  const Item = ({ data }) => (
+    <TouchableOpacity onPress={() => navigation.navigate("Map",{                         
+      'latitude': data.latitude,
+      'longitude': data.longitude,
+    })
+  }
+    >
     <View style={[themeStyle.container, stylesGlobal.item]}>
-      <Text style={[stylesGlobal.text]}>{name}</Text>
+      <Text style={[stylesGlobal.text]}>{ data.name }</Text>
     </View>
+    </TouchableOpacity>
   );
 
   //render
-  const renderItem = ({ item }) => <Item name={item.name} />;
+  const renderItem = ({ item }) => <Item data={item} />;
   return (
     <FlatList data={markerData} renderItem={renderItem} keyExtractor={item => item.name} />
   );

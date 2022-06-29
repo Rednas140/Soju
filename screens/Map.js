@@ -33,25 +33,7 @@ export default function MapScreen({navigation, route, currentTheme, themeStyle, 
     console.log(errorMsg);
   }
 
-//   //GET request
-//   const myHeadersGET = new Headers();
-//   myHeadersGET.append('Accept', 'application/json')
-
-//   const myInitGET = {
-//       method: 'GET',
-//       headers: myHeadersGET
-//   };
-
-//   const loadJSON = () => fetch(`https://stud.hosted.hr.nl/1011426/markers.json`, myInitGET)
-//       .then(res => res.json())
-//       .then(data => updateData(data))
-//       .catch(err => console.log(err))
-
-//   function updateData(data) {
-//     setMarkerData(data)
-// }
-
-//   useEffect(() => { loadJSON()}, []);
+  console.log(route.params)
 
   return (
     <View style={styles.container}>

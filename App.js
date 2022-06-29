@@ -25,6 +25,12 @@ export default function App() {
   //useState for the current selected theme  
   const [currentTheme, setCurrentTheme] = useState('light');
 
+  //useState for the markerData
+  const [markerData, setMarkerData] = useState([])
+
+  //useState for the rating
+  const [rating, setRating] = useState({})
+
   //getting the current theme that is saved in the local storage
   const getTheme = async () => {
     try {
@@ -80,13 +86,20 @@ export default function App() {
   
   //updating the list
   function updateData(data) {
-    storeMarkers(data)
+    setMarkerData(data)
   }
 
   //executed on first render
   useEffect(() => {loadJSON()}, []);
 
-  const [markerData, setMarkerData] = useState([])
+  const getMarker = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('rating')
+      setRating(jsonValue != null ? JSON.parse(jsonValue) : null)
+    } catch(e) {
+      // error reading value
+    }
+  }
 
   const storeMarkers = async (value) => {
     try {
@@ -95,15 +108,6 @@ export default function App() {
       getMarker()
     } catch (e) {
       // saving error
-    }
-  }
-
-  const getMarker = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('markers')
-      setMarkerData(jsonValue != null ? JSON.parse(jsonValue) : null)
-    } catch(e) {
-      // error reading value
     }
   }
 
