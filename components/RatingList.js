@@ -11,9 +11,19 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export default function RatingList({themeStyle, markerData, navigation}) {
     const [rating, setRating] = useState([])
 
+    function getRating(id, ratingValue) {
+        let colorObj = rating.find(arr => arr.id === id)
+        if (colorObj && colorObj.rating >= ratingValue) {
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
     function saveRating(id, ratingValue) {
         if(rating.some(arr => arr.id === id)){
-            // loop over the todos list and find the provided id.
+            // loop over the list and find the provided id.
             let updatedList = rating.map(item => 
                 {
                 if (item.id == id){
@@ -21,15 +31,11 @@ export default function RatingList({themeStyle, markerData, navigation}) {
                 }
                 return item; // else return unmodified item 
             });
-            setRating([updatedList]); // set state to new object with updated list
-
+            setRating(updatedList); // set state to new object with updated list
         }
-
         else{
             setRating([...rating, {"id":id, "rating":ratingValue,}])
             }
-
-        // console.log(rating)
     }
   
   //JSX for a single list item
@@ -38,19 +44,19 @@ export default function RatingList({themeStyle, markerData, navigation}) {
             <Text style={[stylesGlobal.text]}>{ data.name }</Text>
             <View style={[stylesGlobal.stars]}>
                 <TouchableOpacity onPress={() => { saveRating(data.id, 1) }}>
-                    <Ionicons name="md-star" size={32} color="grey" />
+                    <Ionicons name="md-star" size={32} color={getRating(data.id, 1) ? 'gold' : 'grey'} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { saveRating(data.id, 2) }}>
-                    <Ionicons name="md-star" size={32} color="grey" />
+                    <Ionicons name="md-star" size={32} color={getRating(data.id, 2) ? 'gold' : 'grey'} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { saveRating(data.id, 3) }}>
-                    <Ionicons name="md-star" size={32} color="grey" />
+                    <Ionicons name="md-star" size={32} color={getRating(data.id, 3) ? 'gold' : 'grey'} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { saveRating(data.id, 4) }}>
-                    <Ionicons name="md-star" size={32} color="grey" />
+                    <Ionicons name="md-star" size={32} color={getRating(data.id, 4) ? 'gold' : 'grey'} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { saveRating(data.id, 5) }}>
-                    <Ionicons name="md-star" size={32} color="grey" />
+                    <Ionicons name="md-star" size={32} color={getRating(data.id, 5) ? 'gold' : 'grey'} />
                 </TouchableOpacity>
             </View>
         </View>
