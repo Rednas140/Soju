@@ -16,7 +16,6 @@ export default function SettingsScreen({storeTheme, currentTheme, themeStyle}) {
       <Picker
         selectedValue={currentTheme}
         onValueChange={(valueVar, itemIndex) => {
-          console.log(valueVar)
           storeTheme(valueVar)
         }
         }

@@ -6,15 +6,15 @@ import stylesGlobal from '../styles/style.js';
 
 export default function List({themeStyle, markerData, navigation}) {
   
-
   //JSX for a single list item
   const Item = ({ data }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("Map",{                         
-      'latitude': data.latitude,
-      'longitude': data.longitude,
-    })
-  }
-    >
+    <TouchableOpacity 
+  //   onPress={() => navigation.navigate("Map",{                         
+  //     'latitude': data.latitude,
+  //     'longitude': data.longitude,
+  //   })
+  // } 
+  >
     <View style={[themeStyle.container, stylesGlobal.item]}>
       <Text style={[stylesGlobal.text]}>{ data.name }</Text>
     </View>

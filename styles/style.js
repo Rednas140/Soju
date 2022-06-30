@@ -17,6 +17,12 @@ export default StyleSheet.create({
     marginTop: 10,
     width: 250,
   },
+  stars:{
+    flex:1,
+    flexDirection: 'row',
+    alignContent: 'center', 
+    justifyContent: 'center',
+  },
   text:{
     textAlign: 'center',
     color: '#222222'

@@ -1,50 +1,60 @@
 [
     {
+        "id": 1,
         "name":"Soju Bar",
         "longitude":4.477141898224227,
         "latitude":51.915723561947694 
     },
     {
+        "id": 2,
         "name":"Oriental Express",
         "longitude":4.472211469517623 ,
         "latitude":51.92054896265989
     },
     {
+        "id": 3,
         "name":"Kazaguruma",
         "longitude":4.488746566261028 ,
         "latitude":51.92197689407255
     },
     {
+        "id": 4,
         "name":"Seoul Sista Weena",
         "longitude": 4.47397671058464, 
         "latitude": 51.923303825542185
     },
     {
+        "id": 5,
         "name":"Seoul Sista Witte de With",
         "longitude": 4.477882862997086,
         "latitude": 51.91653746663754
     },
     {
+        "id": 6,
         "name":"InterBurgo Europe BV",
         "longitude": 4.417571253442287,
         "latitude": 51.935059552377616
     },
     {
+        "id": 7,
         "name":"Wah Nam Hong",
         "longitude": 4.470839498224343,
         "latitude": 51.92069724565669 
     },
     {
+        "id": 8,
         "name":"Gangnam Korean BBQ",
         "longitude": 4.494598472975617, 
         "latitude": 51.922391182284805 
     },
     {
+        "id": 9,
         "name":"Man Nam",
         "longitude": 4.493323989283459, 
         "latitude": 51.924267487083256 
     },
     {
+        "id": 10,
         "name":"Korean Food by Allegaartje",
         "longitude": 4.485885949693058,  
         "latitude": 51.93318929869035 
