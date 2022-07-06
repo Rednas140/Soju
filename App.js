@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //importing react
 import { useState, useEffect } from 'react';
+import {useColorScheme} from 'react-native';
 
 //importing react navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -26,7 +27,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   //useState for the current selected theme  
-  const [currentTheme, setCurrentTheme] = useState('light');
+  const [currentTheme, setCurrentTheme] = useState(useColorScheme());
 
   //useState for the markerData
   const [markerData, setMarkerData] = useState([])
@@ -39,7 +40,6 @@ export default function App() {
         setCurrentTheme(theme)
       }
       else{
-        setCurrentTheme('light')
       }
     } catch (err) {
       // error reading value
@@ -71,7 +71,7 @@ export default function App() {
   //GET request
   const myHeadersGET = new Headers();
   myHeadersGET.append('Accept', 'application/json')
-  myHeadersGET.append('Cache-Control', 'no-cache')
+  // myHeadersGET.append('Cache-Control', 'no-cache')
 
   //adding headers to fetch
   const myInitGET = {
@@ -94,6 +94,7 @@ export default function App() {
   //executed on first render
   useEffect(() => {loadJSON()}, []);
 
+  //saves the markerdata from the fetch to the async storage
   const storeMarkers = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
@@ -103,6 +104,7 @@ export default function App() {
     }
   }
 
+  //gets the saved marker data from the async storage and sets markerdata to it
   const getMarkers = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('markers')
@@ -112,7 +114,7 @@ export default function App() {
     }
   }
 
-  //executes the gettheme function on first render
+  //executes the gettheme and getMarkers functions on first render
   useEffect(() => {
     getTheme()
     getMarkers()
@@ -136,7 +138,7 @@ export default function App() {
               iconName = focused ? 'settings' : 'settings-outline'
             }
 
-            // You can return any component that you like here!
+            //sets the icons for the tabbar
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: currentTheme == 'light' ? "#99D98C" : "#306844",
@@ -146,6 +148,7 @@ export default function App() {
           tabBarInactiveTintColor: currentTheme == 'light' ? "#222222" : "#FFFFFF",
         })}
       >
+        {/* set the diffrent screens and sends the storeTheme, currentTheme, themeStyle and markerdata as props to those screens */}
         <Tab.Screen name="Home">{(props) => <Home {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle } markerData={ markerData }/>}</Tab.Screen>
         <Tab.Screen name="Rating">{(props) => <Rating {...props} storeTheme={ storeTheme } currentTheme={ currentTheme }themeStyle={ themeStyle } markerData={ markerData }/>}</Tab.Screen>
         <Tab.Screen name="Map">{(props) => <Map {...props} storeTheme={ storeTheme } currentTheme={ currentTheme } themeStyle={ themeStyle } markerData={ markerData }/>}</Tab.Screen>

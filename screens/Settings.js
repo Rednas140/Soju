@@ -9,18 +9,20 @@ import { Picker } from '@react-native-picker/picker';
 import stylesGlobal from '../styles/style.js';
 
 export default function SettingsScreen({storeTheme, currentTheme, themeStyle}) {
-
+  //makes use of the picker to send data to the storeTheme in app.js to save to async storage
   return (
     <View style={[themeStyle.container, stylesGlobal.container]}>
       <Text style={themeStyle.text}>Settings!</Text>
       <Picker
+        dropdownIconColor={currentTheme == 'light' ? "#222222" : "#FEFEEF"}
+        dropdownIconRippleColor={currentTheme == 'light' ? "#222222" : "#FEFEEF"}
         selectedValue={currentTheme}
         onValueChange={(valueVar, itemIndex) => {
           storeTheme(valueVar)
         }
         }
         mode="dropdown" // Android only
-        style={[styles.picker, themeStyle.text]}
+        style={[stylesGlobal.picker, themeStyle.text]}
         >
       <Picker.Item label="Light" value="light" />  
       <Picker.Item label="Dark" value="dark" />
@@ -29,19 +31,3 @@ export default function SettingsScreen({storeTheme, currentTheme, themeStyle}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    picker: {
-      marginVertical: 30,
-      width: 300,
-      padding: 10,
-      borderWidth: 1,
-      borderColor: "#666",
-    },
-  });
